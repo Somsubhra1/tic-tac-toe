@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AppComponent {
   title = 'tic-tac-toe';
   winMessage: string = '';
-  isCross = false;
+  isCross = true;
   itemArray: string[] = new Array(9).fill('empty');
 
   constructor(private toastr: ToastrService) {}
@@ -26,6 +26,9 @@ export class AppComponent {
       return this.toastr.info('Already filled');
     }
     this.checkIsWinner();
+    if (!this.winMessage && !this.itemArray.includes('empty')) {
+      return this.toastr.info(`It's a draw`);
+    }
   };
 
   checkIsWinner = () => {
@@ -83,7 +86,7 @@ export class AppComponent {
 
   reloadGame = () => {
     this.winMessage = '';
-    this.isCross = false;
+    this.isCross = true;
     this.itemArray = new Array(9).fill('empty');
   };
 }
